@@ -1,4 +1,4 @@
-# Hackage-Fu: Browser Plugins to increase Hackage productivity
+# Hackage-Fu: Browser plugins to increase Hackage productivity
 
 Hackage-Fu is a Chrome extension to add some useful buttons to
 [Hackage][hackage]. My current workflow is as follows:
