@@ -18,7 +18,7 @@ var latestPackageUrl = 'http://' + window.location.host + noVersionPath;
 // Parse an entire page to find the array of Versions
 getVersionsFromPage = function(elem) {
   // Find the element
-  var tr = elem.find('table > tbody > tr > th:contains("Versions")').next();
+  var tr = elem.find('table > tbody > tr > th:contains("Version")').next();
   // Return all links to versions as an array of version numbers
   return $.map(tr.children(), function(e) { return $(e).text(); });
 }
