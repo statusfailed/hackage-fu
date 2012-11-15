@@ -1,5 +1,7 @@
 # Hackage-Fu: Browser plugins to increase Hackage productivity
 
+Now available on the [Chrome Web Store][webstore]!
+
 Hackage-Fu is a Chrome extension to add some useful buttons to
 [Hackage][hackage]. My current workflow is as follows:
 
@@ -38,3 +40,4 @@ If the current page does not exist in the newest version, it is shown as
 
 [hackage]: http://hackage.haskell.org/packages/hackage.html
 [example-newer-page]: http://hackage.haskell.org/packages/archive/riak/0.6.0.0/doc/html/Network-Riak-Value.html
+[webstore]: https://chrome.google.com/webstore/detail/hackage-fu/dnpldbohleinhdgfnhlkofpgkdcfcfmf/related
