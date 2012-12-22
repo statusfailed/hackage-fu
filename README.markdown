@@ -35,6 +35,7 @@ If the current page does not exist in the newest version, it is shown as
 ### TODO
 
 * Fix bug in "old hackage" where HTML is different, e.g. [here][old-hackage]
+* Fix bug on 'latest' url e.g. [here][http://hackage.haskell.org/packages/archive/category-extras/latest/doc/html/Control-Functor-Zip.html]
 * Menu for navigating to arbitrary versions of the same page
 * Port to Firefox
 * Port to Greasemonkey
