@@ -59,7 +59,7 @@ renderNewerPageButton = function(currentVersion, versions) {
   var latestPageUrl = window.location.href.replace(/\/(\d+\.)+\d+\//, "/" + latestVersion + "/");
 
   // If old version, add a button to get to the newer version
-  if(currentVersion < latestVersion) {
+  if(currentVersion != latestVersion) {
     addNav($('<li id="version-li"><a class="oldVersion" href="' + latestPageUrl
              + '">Newer - ' + latestVersion + '</a></li>'));
   } else {
