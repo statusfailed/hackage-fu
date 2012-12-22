@@ -8,12 +8,25 @@
 
 // Grab info about the current package from the page
 var contentsLink = $("#page-menu > li > a:contains('Contents')");
+var oldHackage = false;
+
+// Make it work with old hackage
+if(!contentsLink.length) { 
+  oldHackage = true;
+  contentsLink = $('td.topbar > table.vanilla > tbody > tr > td:nth-child(4) > a');
+  console.log(contentsLink);
+}
+
 var contentsPath = contentsLink.attr('href');
+console.log(contentsPath);
 
 // Extract & Remove version numbers
 var noVersionPath = contentsPath.replace(/-(\d+\.)+\d+$/, "")
 var currentVersion = contentsPath.match(/(\d+\.)+\d+$/)[0]; // TODO: tidyup
-var latestPackageUrl = 'http://' + window.location.host + noVersionPath;
+//var latestPackageUrl = 'http://' + window.location.host + noVersionPath;
+var latestPackageUrl = noVersionPath; // Absolute or relative paths work.
+
+console.log('noverpath / latest package url: ' + latestPackageUrl);
 
 // Parse an entire page to find the array of Versions
 getVersionsFromPage = function(elem) {
@@ -25,16 +38,26 @@ getVersionsFromPage = function(elem) {
 
 // Shortcut to add a nav link
 addNav = function(elem) {
-  $('#page-menu').prepend(elem);
+  if(!oldHackage) {
+    $('#page-menu').prepend(elem);
+  } else {
+    console.log('adding nav (oldschool)');
+    $('td.topbar > table.vanilla > tbody > tr > td.topbut').first().before(elem);
+  }
 }
 
 // Render a "latest" link next to the "contents" link.
 renderLatestContents = function(currentVersion, versions) {
   var latestVersion = versions[versions.length - 1];
 
-  if(currentVersion < latestVersion) {         
+  if(currentVersion != latestVersion) {         
     // Find contents link and add a link to latest
-    var contents = $('#package-header > ul > li > a:contains("Contents")');
+    var contents = null;
+    if(!oldHackage) {
+      contents = $('#package-header > ul > li > a:contains("Contents")');
+    } else {
+      contents = $('td.topbar > table.vanilla > tbody > tr > td:nth-child(4) > a');
+    }
     contents.css({ paddingRight: '0.25em' });
 
     // Build the link element
@@ -53,20 +76,22 @@ renderLatestContents = function(currentVersion, versions) {
 }
 
 // Render a button to go to a newer version of the package if available
-// TODO: Find out of link is gone in newer version & notify obsolete!
 renderNewerPageButton = function(currentVersion, versions) {
   var latestVersion = versions[versions.length - 1];
   var latestPageUrl = window.location.href.replace(/\/(\d+\.)+\d+\//, "/" + latestVersion + "/");
 
+  // TODO: this is a bit gross...
+  var tag = oldHackage ? 'td' : 'li';
+
   // If old version, add a button to get to the newer version
   if(currentVersion != latestVersion) {
-    addNav($('<li id="version-li"><a class="oldVersion" href="' + latestPageUrl
-             + '">Newer - ' + latestVersion + '</a></li>'));
+    addNav($('<' + tag + ' id="version-li"><a class="oldVersion" href="' + latestPageUrl
+             + '">Newer - ' + latestVersion + '</a></' + tag + '>'));
   } else {
-    addNav($('<li id="version-li"><span class="latest">Latest</span></li>'));
+    addNav($('<'+ tag + ' id="version-li"><span class="latest">Latest</span></' + tag + '>'));
   }
 
-  // Ajax to check if link is broken.
+  // Ajax to check if link is broken in next version
   checkObsolete(latestPageUrl);
 }
 
@@ -75,7 +100,7 @@ checkObsolete = function(url) {
     // If we got a 404, mark this page as obsolete.
     // TODO: find most recent version with this page?
     if(jqXHR.status == 404) {
-      $('#version-li').html('<span class="obsolete">Obsolete</span>');
+      $('#version-li').html('<span class="obsolete">Missing</span>');
     }
   });
 }
@@ -84,7 +109,6 @@ checkObsolete = function(url) {
 renderVersions = function(versions) {
   var header = $('<div id="package-versions" class="header">TEST TEST TEST TEST TEST</div>');
   $('#package-header').after(header);
-  console.log('here');
 }
 
 // Callback for when page is retrieved
