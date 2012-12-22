@@ -34,7 +34,7 @@ If the current page does not exist in the newest version, it is shown as
 
 ### TODO
 
-* Fix bug on 'latest' url e.g. [here][http://hackage.haskell.org/packages/archive/category-extras/latest/doc/html/Control-Functor-Zip.html]
+* Fix bug on 'latest' url e.g. [here][latest-url-bug]
   This appears to be a bug in Hackage- "Contents" links to 0.53.5 instead of 1.0.2
 * Port to Firefox
 * Port to Greasemonkey
@@ -46,3 +46,4 @@ If the current page does not exist in the newest version, it is shown as
 [example-newer-page]: http://hackage.haskell.org/packages/archive/riak/0.6.0.0/doc/html/Network-Riak-Value.html
 [webstore]: https://chrome.google.com/webstore/detail/hackage-fu/dnpldbohleinhdgfnhlkofpgkdcfcfmf/related
 [old-hackage]: http://hackage.haskell.org/packages/archive/bytestring/0.9.0.4/doc/html/Data-ByteString-Lazy.html
+[latest-url-bug]: http://hackage.haskell.org/packages/archive/category-extras/latest/doc/html/Control-Functor-Zip.html
