@@ -35,7 +35,8 @@ If the current page does not exist in the newest version, it is shown as
 ### TODO
 
 * Fix bug on 'latest' url e.g. [here][latest-url-bug]
-  This appears to be a bug in Hackage- "Contents" links to 0.53.5 instead of 1.0.2
+  This appears to be a bug in Hackage- "Contents" button on "latest" page
+  links to 0.53.5 instead of 1.0.2
 * Port to Firefox
 * Port to Greasemonkey
 * Menu for navigating to arbitrary versions of the same page
