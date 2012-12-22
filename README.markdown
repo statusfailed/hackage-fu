@@ -34,11 +34,13 @@ If the current page does not exist in the newest version, it is shown as
 
 ### TODO
 
-* Fix bug in "old hackage" where HTML is different, e.g. [here][old-hackage]
 * Fix bug on 'latest' url e.g. [here][http://hackage.haskell.org/packages/archive/category-extras/latest/doc/html/Control-Functor-Zip.html]
-* Menu for navigating to arbitrary versions of the same page
+  This appears to be a bug in Hackage- "Contents" links to 0.53.5 instead of 1.0.2
 * Port to Firefox
 * Port to Greasemonkey
+* Menu for navigating to arbitrary versions of the same page
+* <del>Fix bug in "old hackage" where links are not displayed, e.g. [here][old-hackage]</del>
+* <del>Fix bug incorrectly comparing version strings.</del>
 
 [hackage]: http://hackage.haskell.org/packages/hackage.html
 [example-newer-page]: http://hackage.haskell.org/packages/archive/riak/0.6.0.0/doc/html/Network-Riak-Value.html
