@@ -3,7 +3,7 @@
   text-decoration: bold;
 }
 
-#package-header > ul.links > li > .obsolete {
+.obsolete {
   color: red;
   padding: 0.2em 0.5em;
 }
