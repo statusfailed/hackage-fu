@@ -1,33 +1,6 @@
 // Force include jquery:
 // (http://stackoverflow.com/questions/7474354/include-jquery-in-the-javascript-console)
 
-//var jq = document.createElement('script');
-//jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js";
-//document.getElementsByTagName('head')[0].appendChild(jq);
-//jQuery.noConflict();
-
-// Grab info about the current package from the page
-var contentsLink = $("#page-menu > li > a:contains('Contents')");
-var oldHackage = false;
-
-// Make it work with old hackage
-if(!contentsLink.length) { 
-  oldHackage = true;
-  contentsLink = $('td.topbar > table.vanilla > tbody > tr > td:nth-child(4) > a');
-  console.log(contentsLink);
-}
-
-var contentsPath = contentsLink.attr('href');
-console.log(contentsPath);
-
-// Extract & Remove version numbers
-var noVersionPath = contentsPath.replace(/-(\d+\.)+\d+$/, "")
-var currentVersion = contentsPath.match(/(\d+\.)+\d+$/)[0]; // TODO: tidyup
-//var latestPackageUrl = 'http://' + window.location.host + noVersionPath;
-var latestPackageUrl = noVersionPath; // Absolute or relative paths work.
-
-console.log('noverpath / latest package url: ' + latestPackageUrl);
-
 // Parse an entire page to find the array of Versions
 getVersionsFromPage = function(elem) {
   // Find the element
@@ -41,14 +14,16 @@ addNav = function(elem) {
   if(!oldHackage) {
     $('#page-menu').prepend(elem);
   } else {
-    console.log('adding nav (oldschool)');
+    //console.log('adding nav (oldschool)');
     $('td.topbar > table.vanilla > tbody > tr > td.topbut').first().before(elem);
   }
 }
 
 // Render a "latest" link next to the "contents" link.
 renderLatestContents = function(currentVersion, versions) {
+  //console.log('versions: ', versions);
   var latestVersion = versions[versions.length - 1];
+  //console.log('latest version: ', latestVersion);
 
   if(currentVersion != latestVersion) {         
     // Find contents link and add a link to latest
@@ -78,7 +53,8 @@ renderLatestContents = function(currentVersion, versions) {
 // Render a button to go to a newer version of the package if available
 renderNewerPageButton = function(currentVersion, versions) {
   var latestVersion = versions[versions.length - 1];
-  var latestPageUrl = window.location.href.replace(/\/(\d+\.)+\d+\//, "/" + latestVersion + "/");
+  var pageUrlVersionRegex = new RegExp(packageName + "-" + currentVersion);
+  var latestPageUrl = window.location.href.replace(pageUrlVersionRegex, packageName + "-" + latestVersion);
 
   // TODO: this is a bit gross...
   var tag = oldHackage ? 'td' : 'li';
@@ -107,7 +83,7 @@ checkObsolete = function(url) {
 
 // Add list of versions to the page header
 renderVersions = function(versions) {
-  var header = $('<div id="package-versions" class="header">TEST TEST TEST TEST TEST</div>');
+  var header = $('<div id="package-versions" class="header">TODO</div>');
   $('#package-header').after(header);
 }
 
@@ -126,5 +102,28 @@ onGetContents = function(jqXHR, textStatus, jqXHR) {
   //renderVersions(versions);
 };
 
-// Get list of package versions & add button when complete
-$.ajax(latestPackageUrl, { success: onGetContents });
+// Grab info about the current package from the page
+var contentsLink = $("#page-menu > li > a:contains('Contents')");
+var oldHackage = false;
+
+// Make it work with old hackage
+if(!contentsLink.length) { 
+  oldHackage = true;
+  contentsLink = $('td.topbar > table.vanilla > tbody > tr > td:nth-child(4) > a');
+}
+
+var contentsPath = contentsLink.attr('href');
+
+// if we're on the package front page, don't do anything.
+if(contentsPath) {
+  // Extract & Remove version numbers and package name
+  var noVersionPath = contentsPath.replace(/-(\d+\.)+\d+$/, "")
+
+  var packageName = noVersionPath.split('/').reverse()[0]
+  var currentVersion = contentsPath.match(/(\d+\.)+\d+$/)[0]; // TODO: tidyup
+  var latestPackageUrl = noVersionPath; // Absolute or relative paths work.
+
+  // Get list of package versions & add button when complete
+  $.ajax(latestPackageUrl, { success: onGetContents });
+}
+
