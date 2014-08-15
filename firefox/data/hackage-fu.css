@@ -1,0 +1,31 @@
+#package-header > ul.links > li > .oldVersion {
+  color: orange;
+  text-decoration: bold;
+}
+
+.obsolete {
+  color: red;
+  padding: 0.2em 0.5em;
+}
+
+#package-header > ul.links > li > span.latest {
+  color: lime;
+  padding: 0.2em 0.5em;
+}
+
+// the (Latest) part of Contents (Latest) links in navbar.
+#package-header > ul.links > li > a.latestContents {
+  color: orange;
+  padding: 0.2em 0.5em 0.2em 0.25em;
+}
+
+/** TODO: Can I get this using javascript instead of copying it? **/
+.header {
+  background: #293845;
+  /*border-top: 5px solid #4E6272;*/
+  padding: 0em 1em 0em 1em;
+  color: #DDD;
+  padding: 0.2em;
+  position: relative;
+  text-align: left;
+}
