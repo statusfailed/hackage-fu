@@ -1,12 +1,15 @@
 // Force include jquery:
 // (http://stackoverflow.com/questions/7474354/include-jquery-in-the-javascript-console)
 
+var versionRegex = /(\d+\.)+\d+$/;
+
 // Parse an entire page to find the array of Versions
 getVersionsFromPage = function(elem) {
   // Find the element
   var tr = elem.find('table > tbody > tr > th:contains("Version")').next();
   // Return all links to versions as an array of version numbers
-  return $.map(tr.children(), function(e) { return $(e).text(); });
+  return $.map(tr.children(), function(e) { return $(e).text(); })
+    .filter(function(v) { return versionRegex.exec(v); });
 }
 
 // Shortcut to add a nav link
@@ -120,7 +123,7 @@ if(contentsPath) {
   var noVersionPath = contentsPath.replace(/-(\d+\.)+\d+$/, "")
 
   var packageName = noVersionPath.split('/').reverse()[0]
-  var currentVersion = contentsPath.match(/(\d+\.)+\d+$/)[0]; // TODO: tidyup
+  var currentVersion = contentsPath.match(versionRegex)[0]; // TODO: tidyup
   var latestPackageUrl = noVersionPath; // Absolute or relative paths work.
 
   // Get list of package versions & add button when complete
