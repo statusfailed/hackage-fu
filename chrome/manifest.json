@@ -1,6 +1,6 @@
 {
   "name": "Hackage-Fu",
-  "version": "0.2.0.2",
+  "version": "0.2.0.3",
   "description": "Productivity Tools for HackageDB",
 
   "icons": {
@@ -14,11 +14,11 @@
   "content_scripts": [{
     "css": [ "main.css" ],
     "js": [ "jquery.min.js", "hackage.js" ],
-    "matches": [ "http://hackage.haskell.org/package*" ],
+    "matches": [ "*://hackage.haskell.org/package*" ],
     "run_at": "document_end"
   }],
 
-  "permissions": [ "tabs", "http://hackage.haskell.org/package*" ],
+  "permissions": [ "tabs", "*://hackage.haskell.org/package*" ],
 
   "manifest_version": 2
 }
