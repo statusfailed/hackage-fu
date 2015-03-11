@@ -32,6 +32,19 @@ For example [Network.Riak.Value][example-newer-page].
 If the current page does not exist in the newest version, it is shown as
 "obsolete".
 
+## Developing
+
+In Chrom(e|ium):
+
+1. Clone the repository
+2. Click `options -> settings`
+3. Tick `Developer Mode` in the top right of the page
+4. Click `Load unpacked extension`
+5. Navigate to the cloned repository, and select the `chrome` subdirectory
+
+You should now have the hackage-fu extension installed. You can make
+changes and reload with `Ctrl+R` in the extensions screen.
+
 ### TODO
 
 * Fix bug on 'latest' url e.g. [here][latest-url-bug]
